@@ -1,13 +1,20 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const crypto = require('crypto');
+import axios from 'axios';
+import cheerio from 'cheerio';
+import crypto from 'crypto';
 
 const ExamListURL = 'https://stdportal.emu.edu.tr/examlist.asp';
 
 var Cache = [];
 var Checksum = '';
 
-async function generateChecksum() {
+export default function EMUInfo() {
+    return {
+        name: 'EMU Exam List',
+    }
+}
+        
+
+export async function generateChecksum() {
     try {
         const response = await axios.get(ExamListURL);
         const html = response.data;
@@ -107,12 +114,17 @@ async function generateExamListObjects(){
     }
 }
 
-module.exports = async function EMUExamList() {
+export async function EMUExamList() {
     var checksum = await generateChecksum();
     if (checksum != Checksum) {
         Cache = await generateExamListObjects();
         Checksum = checksum;
     }
-    return Cache;
+    return(
+        {
+            checksum: Checksum,
+            examList: Cache
+        }
+    );
 }
 
