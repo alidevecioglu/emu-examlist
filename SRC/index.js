@@ -88,7 +88,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     res.render('index');
-  });
+});
+
+// return the info of the course
+app.get('/api/getCourse/:codes', async (req, res) => {
+    const codes = req.params.codes.split(',');
+    const examList = await GetExamList(codes);
+    res.json(examList);
+});
 
 app.get('/cal/:codes', async (req, res) => {
     const codes = req.params.codes.split(',');
