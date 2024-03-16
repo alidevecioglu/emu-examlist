@@ -78,7 +78,7 @@ const limiter = rateLimit({
     max: 50,
 });
 
-app.use(limiter);
+//app.use(limiter);
 app.set('view engine', 'ejs');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
