@@ -1,78 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMU Dynamic Exam Calendar</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            padding-top: 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         h1 {
-            text-align: center;
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
         label {
-            display: block;
-            margin-bottom: 10px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         input[type="text"] {
-            width: 200px;
-            padding: 5px;
-            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 5px;
         }
 
-        button {
-            padding: 5px 10px;
-            margin-bottom: 10px;
-        }
-
-        #generatedURL {
-            text-align: center;
+        .btn {
+            margin: 20px 0;
         }
 
         ul {
-            list-style-type: none;
-            padding: 0;
+            margin-top: 20px;
         }
 
         li {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 5px;
+            align-items: center;
         }
 
-        li button {
-            margin-left: 10px;
+        .url-container {
+            word-break: break-all;
+            margin-top: 20px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .logo-box {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-top: -20px;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            background-color: #024187;
         }
     </style>
-    <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
-    <h1>EMU Dynamic Exam Calendar</h1>
-    <label for="courseCode">Enter course code:</label>
-    <input type="text" id="courseCode">
-    <button class="btn btn-primary mb-2" onclick="addCourse()">Add</button>
-    <button class="btn btn-primary mb-2" onclick="generateURL()">Generate URL</button>
-    <ul class="mb-2" id="courseList"></ul>
-    <a href="#" class="mb-2" id="generatedURL"></a>
+    <div class="container">
+        <div class="logo-box text-center">  
+            <img src="emu-logo.svg" alt="EMU Logo" width="400">
+        </div>
+        <div class="text-center">
+            <h1 class="fw-bolder">EMU Dynamic Exam Calendar</h1>
+        </div>
+        <div class="alert alert-warning text-center">
+            <a>
+                <span class="fw-bolder"> Disclaimer: </span>
+                    This website is not partnered with or endorsed by Eastern Mediterranean University.
+                    This is a personal project and is not affiliated with the university.
+            </a>
+        </div>
+        <div class="alert alert-info text-center">
+            <a>
+                <span class="fw-bolder"> Info: </span>
+                    This website gets the exam dates from the official <a class="fw-semibold" href="https://stdportal.emu.edu.tr/examlist.asp" target="_blank">EMU exam schedule</a> and generates a dynamic calendar for the selected courses.
+            </a>
+        </div>
+        <div>
+            <label for="courseCode">Enter course code:</label>
+            <input type="text" id="courseCode" placeholder="e.g., ITEC310">
+        </div>
+        <button class="btn btn-primary" onclick="addCourse()">Add Course</button>
+        <button class="btn btn-success" onclick="generateURL()">Generate URL</button>
+        <ul id="courseList"></ul>
+        <div class="url-container">
+            <a id="generatedURL" href="#" target="_blank"></a>
+        </div>
+    </div>
 
     <script>
         var courses = [];
 
         function addCourse() {
-            var courseCode = document.getElementById("courseCode").value;
-            courses.push(courseCode);
-            document.getElementById("courseCode").value = "";
-            renderCourseList();
+            var courseCode = document.getElementById("courseCode").value.trim();
+            if (courseCode) {
+                courses.push(courseCode);
+                document.getElementById("courseCode").value = "";
+                renderCourseList();
+            }
         }
 
         function removeCourse(index) {
@@ -81,9 +130,13 @@
         }
 
         function generateURL() {
-            var url = "/cal/" + courses.join(",");
-            document.getElementById("generatedURL").innerHTML = url;
-            document.getElementById("generatedURL").href = "/cal/" + courses.join(",");
+            if (courses.length > 0) {
+                var url = "/cal/" + courses.join(",");
+                document.getElementById("generatedURL").textContent = url;
+                document.getElementById("generatedURL").href = url;
+            } else {
+                document.getElementById("generatedURL").textContent = "Please add courses to generate URL.";
+            }
         }
 
         function renderCourseList() {
@@ -91,13 +144,11 @@
             courseList.innerHTML = "";
             courses.forEach(function(course, index) {
                 var listItem = document.createElement("li");
-                listItem.innerHTML = course;
+                listItem.textContent = course;
                 var removeButton = document.createElement("button");
-                removeButton.innerHTML = "X";
-                removeButton.onclick = function() {
-                    removeCourse(index);
-                };
-                removeButton.classList.add("btn", "btn-danger");
+                removeButton.textContent = "Remove";
+                removeButton.className = "btn btn-danger btn-sm";
+                removeButton.onclick = function() { removeCourse(index); };
                 listItem.appendChild(removeButton);
                 courseList.appendChild(listItem);
             });
