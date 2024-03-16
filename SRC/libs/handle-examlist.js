@@ -103,7 +103,7 @@ async function generateExamListObjects(){
             var courseObject = {
                 course: course,
                 period: avaliblePeriods[rangeOfPeriods.length - 1],
-                date: courseDate
+                date: courseDate            
             }
             avalibleExams.push(courseObject);
         });

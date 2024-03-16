@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMU Dynamic Exam Calendar</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+
+        #generatedURL {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        li button {
+            margin-left: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+    <h1>EMU Dynamic Exam Calendar</h1>
+    <label for="courseCode">Enter course code:</label>
+    <input type="text" id="courseCode">
+    <button class="btn btn-primary mb-2" onclick="addCourse()">Add</button>
+    <button class="btn btn-primary mb-2" onclick="generateURL()">Generate URL</button>
+    <ul class="mb-2" id="courseList"></ul>
+    <a href="#" class="mb-2" id="generatedURL"></a>
+
+    <script>
+        var courses = [];
+
+        function addCourse() {
+            var courseCode = document.getElementById("courseCode").value;
+            courses.push(courseCode);
+            document.getElementById("courseCode").value = "";
+            renderCourseList();
+        }
+
+        function removeCourse(index) {
+            courses.splice(index, 1);
+            renderCourseList();
+        }
+
+        function generateURL() {
+            var url = "/cal/" + courses.join(",");
+            document.getElementById("generatedURL").innerHTML = url;
+            document.getElementById("generatedURL").href = "/cal/" + courses.join(",");
+        }
+
+        function renderCourseList() {
+            var courseList = document.getElementById("courseList");
+            courseList.innerHTML = "";
+            courses.forEach(function(course, index) {
+                var listItem = document.createElement("li");
+                listItem.innerHTML = course;
+                var removeButton = document.createElement("button");
+                removeButton.innerHTML = "X";
+                removeButton.onclick = function() {
+                    removeCourse(index);
+                };
+                removeButton.classList.add("btn", "btn-danger");
+                listItem.appendChild(removeButton);
+                courseList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
