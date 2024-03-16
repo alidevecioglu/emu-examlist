@@ -101,7 +101,7 @@
         </div>
         <div>
             <label for="courseCode">Enter course code:</label>
-            <input type="text" id="courseCode" placeholder="e.g., ITEC310">
+            <input type="text" id="courseCode" placeholder="e.g., ITEC310, ITEC420, ...">
         </div>
         <button class="btn btn-primary" onclick="addCourse()">Add Course</button>
 
@@ -129,24 +129,6 @@
 
     <script>
         var courses = [];
-
-        /*
-        Example Data Structure:
-        [
-            {
-                "course": "ITEC310",
-                "period": "14:30",
-                "date": "28 March 2024",
-                "ParsedDate": "2024-03-28T12:30:00.000Z"
-            },
-            {
-                "course": "ITEC420",
-                "period": "08:30",
-                "date": "04 April 2024",
-                "ParsedDate": "2024-04-04T05:30:00.000Z"
-            }
-        ]
-        */
 
         function handleUpdate() {
             TableUpdate();
@@ -197,10 +179,7 @@
         function TableUpdate() {
             var table = document.getElementById("ExamTable").getElementsByTagName('tbody')[0];
             table.innerHTML = "";
-
-            // Sort the courses array by ParsedDate
             courses.sort((a, b) => new Date(a.ParsedDate) - new Date(b.ParsedDate));
-
             courses.forEach(course => {
                 var row = table.insertRow(-1);
                 var courseCell = row.insertCell(0);
@@ -215,7 +194,6 @@
         }
 
         function generateAddToCalendarLink() {
-            // for create a cal link /cal/Code1,Code2,Code3
             var courseCodes = courses.map(c => c.course).join(",");
             var url = (courseCodes.length > 0) ? `/cal/${courseCodes}` : "#";
             document.getElementById("generatedURL").href = url;
