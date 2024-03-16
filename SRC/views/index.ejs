@@ -154,7 +154,7 @@
         }
 
         function addCourse() {
-            var courseCode = document.getElementById("courseCode").value.trim().toUpperCase();
+            var courseCode = document.getElementById("courseCode").value.trim().toUpperCase().replace(/\s/g, "");
             if (courseCode) {
                 var courseCodes = courseCode.split(",");
                 fetch(`/api/getCourse/${courseCode}`)
