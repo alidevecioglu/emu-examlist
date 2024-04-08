@@ -74,11 +74,11 @@ setInterval(async () => {
 const app = express();
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 50,
+    windowMs: 10 * 60 * 1000,
+    max: 100,
 });
 
-//app.use(limiter);
+app.use(limiter);
 app.set('view engine', 'ejs');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
