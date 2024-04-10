@@ -80,6 +80,8 @@ const limiter = rateLimit({
 
 app.use(limiter);
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -94,6 +96,8 @@ app.get('/', (req, res) => {
 app.get('/api/getCourse/:codes', async (req, res) => {
     const codes = req.params.codes.split(',');
     const examList = await GetExamList(codes);
+    const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log(`[INFO] Request IP: ${clientIP}, Request codes: ${codes}`);
     res.json(examList);
 });
 
@@ -104,6 +108,8 @@ app.get('/cal/:codes', async (req, res) => {
         'Content-Type': 'text/calendar; charset=utf-8',
         'Content-Disposition': 'attachment; filename="calendar.ics"'
     });
+    const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log(`[ICAL] Request IP: ${clientIP}, Request codes: ${codes}`);
     res.send(ical.toString());
 });
 
