@@ -1,210 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EMU Dynamic Exam Calendar</title>
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet" />
     <style>
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            padding-top: 20px;
-        }
+      body {
+        background-color: #f5f5f5;
+        color: #333;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        padding-top: 20px;
+      }
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        h1 {
-            color: #0056b3;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+      h1 {
+        color: #0056b3;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
 
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-        }
+      label {
+        font-weight: bold;
+        margin-top: 10px;
+      }
 
-        input[type="text"] {
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 5px;
-        }
+      input[type="text"] {
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 5px;
+      }
 
-        .btn {
-            margin: 20px 0;
-        }
+      .btn {
+        margin: 20px 0;
+      }
 
-        .button-container {
-            word-break: break-all;
-            margin-top: 20px;
-            padding: 10px;
-            background: #e9ecef;
-            border-radius: 4px;
-            text-align: center;
-        }
+      .button-container {
+        word-break: break-all;
+        margin-top: 20px;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 4px;
+        text-align: center;
+      }
 
-        .table-container {
-            word-break: break-all;
-            margin-top: 20px;
-            padding: 10px;
-            background: #e9ecef;
-            border-radius: 4px;
-        }
+      .table-container {
+        word-break: break-all;
+        margin-top: 20px;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 4px;
+      }
 
-        .logo-box {
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            margin-top: -20px;
-            margin-left: -20px;
-            margin-right: -20px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            background-color: #024187;
-        }
+      .logo-box {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        margin-top: -20px;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        background-color: #024187;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="logo-box text-center">
-            <img src="emu-logo.svg" alt="EMU Logo" width="300">
-        </div>
-        <div class="text-center">
-            <h1 class="fw-bolder">EMU Dynamic Exam Calendar</h1>
-        </div>
-        <div class="alert alert-warning text-center">
-            <a>
-                <span class="fw-bolder"> Disclaimer: </span>
-                This website is not partnered with or endorsed by Eastern Mediterranean University.
-                This is a personal project and is not affiliated with the university.
-            </a>
-        </div>
-        <div class="alert alert-info text-center">
-            <a>
-                <span class="fw-bolder"> Info: </span>
-                This website gets the exam dates from the official <a class="fw-semibold"
-                    href="https://stdportal.emu.edu.tr/examlist.asp" target="_blank">EMU exam schedule</a> and generates
-                a dynamic calendar for the selected courses.
-            </a>
-        </div>
-        <div>
-            <label for="courseCode">Enter course code:</label>
-            <input type="text" id="courseCode" placeholder="e.g., ITEC310, ITEC420, ...">
-        </div>
-        <button class="btn btn-primary" onclick="addCourse()">Add Course</button>
+      <div class="logo-box text-center">
+        <img src="emu-logo.svg" alt="EMU Logo" width="300" />
+      </div>
+      <div class="text-center">
+        <h1 class="fw-bolder">EMU Dynamic Exam Calendar</h1>
+      </div>
+      <div class="alert alert-warning text-center">
+        <a>
+          <span class="fw-bolder"> Disclaimer: </span>
+          This website is not partnered with or endorsed by Eastern
+          Mediterranean University. This is a personal project and is not
+          affiliated with the university.
+        </a>
+      </div>
+      <div class="alert alert-info text-center">
+        <a>
+          <span class="fw-bolder"> Info: </span>
+          This website gets the exam dates from the official
+          <a
+            class="fw-semibold"
+            href="https://stdportal.emu.edu.tr/examlist.asp"
+            target="_blank"
+            >EMU exam schedule</a
+          >
+          and generates a dynamic calendar for the selected courses.
+        </a>
+      </div>
+      <div>
+        <label for="courseCode">Enter course code:</label>
+        <input
+          type="text"
+          id="courseCode"
+          placeholder="e.g., ITEC310, ITEC420, ..."
+        />
+      </div>
+      <button class="btn btn-primary" onclick="addCourse()">Add Course</button>
 
-        <div class="table-container">
-            <table id="ExamTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Course Code</th>
-                        <th>Exam Date</th>
-                        <th>Exam Time</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
-        <div class="button-container">
-            <a id="generatedURL" href="#" class="btn btn-primary" target="_blank">Add To Calendar Link</a>
-            <button class="btn btn-danger" onclick="clearAll();">Clear All</button>
-        </div>
-
+      <div class="table-container">
+        <table id="ExamTable" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Name</th>
+              <th>Exam Date</th>
+              <th>Exam Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <a id="generatedURL" href="#" class="btn btn-primary" target="_blank"
+          >Add To Calendar Link</a
+        >
+        <button class="btn btn-danger" onclick="clearAll();">Clear All</button>
+      </div>
     </div>
 
     <script>
-        var courses = [];
+      var courses = [];
 
-        function handleUpdate() {
-            TableUpdate();
-            generateAddToCalendarLink();
-        }
+      function handleUpdate() {
+        TableUpdate();
+        generateAddToCalendarLink();
+      }
 
-        function addCourse() {
-            var courseCode = document.getElementById("courseCode").value.trim().toUpperCase().replace(/\s/g, "");
-            if (courseCode) {
-                var courseCodes = courseCode.split(",");
-                fetch(`/api/getCourse/${courseCode}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            data.forEach(course => {
-                                var courseIndex = courses.findIndex(c => c.course === course.course);
-                                if (courseIndex === -1) {
-                                    courses.push(course);
-                                }
-                            });
-                            handleUpdate();
-                        }
-                    });
-            }
-            document.getElementById("courseCode").value = "";
-        }
-
-        function removeCourse(courseCode) {
-            var courseIndex = courses.findIndex(c => c.course === courseCode);
-            if (courseIndex !== -1) {
-                courses.splice(courseIndex, 1);
+      function addCourse() {
+        var courseCode = document
+          .getElementById("courseCode")
+          .value.trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+        if (courseCode) {
+          var courseCodes = courseCode.split(",");
+          fetch(`/api/getCourse/${courseCode}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else {
+                data.forEach((course) => {
+                  var courseIndex = courses.findIndex(
+                    (c) => c.course === course.course
+                  );
+                  if (courseIndex === -1) {
+                    courses.push(course);
+                  }
+                });
                 handleUpdate();
-            }
-        }
-
-        function generateRemoveButton(courseCode) {
-            var button = document.createElement("button");
-            button.innerHTML = "Remove";
-            button.className = "btn btn-danger";
-            button.onclick = function () {
-                removeCourse(courseCode);
-            };
-            return button;
-        }
-
-        function TableUpdate() {
-            var table = document.getElementById("ExamTable").getElementsByTagName('tbody')[0];
-            table.innerHTML = "";
-            courses.sort((a, b) => new Date(a.ParsedDate) - new Date(b.ParsedDate));
-            courses.forEach(course => {
-                var row = table.insertRow(-1);
-                var courseCell = row.insertCell(0);
-                var dateCell = row.insertCell(1);
-                var periodCell = row.insertCell(2);
-                var actionCell = row.insertCell(3);
-                courseCell.innerHTML = course.course;
-                dateCell.innerHTML = course.date;
-                periodCell.innerHTML = course.period;
-                actionCell.appendChild(generateRemoveButton(course.course));
+              }
             });
         }
+        document.getElementById("courseCode").value = "";
+      }
 
-        function generateAddToCalendarLink() {
-            var courseCodes = courses.map(c => c.course).join(",");
-            var url = (courseCodes.length > 0) ? `/cal/${courseCodes}` : "#";
-            document.getElementById("generatedURL").href = url;
+      function removeCourse(courseCode) {
+        var courseIndex = courses.findIndex((c) => c.course === courseCode);
+        if (courseIndex !== -1) {
+          courses.splice(courseIndex, 1);
+          handleUpdate();
         }
-        
-        function clearAll() {
-            courses = [];
-            handleUpdate();
-        }
+      }
 
+      function generateRemoveButton(courseCode) {
+        var button = document.createElement("button");
+        button.innerHTML = "Remove";
+        button.className = "btn btn-danger";
+        button.onclick = function () {
+          removeCourse(courseCode);
+        };
+        return button;
+      }
+
+      function TableUpdate() {
+        var table = document
+          .getElementById("ExamTable")
+          .getElementsByTagName("tbody")[0];
+        table.innerHTML = "";
+        courses.sort((a, b) => new Date(a.ParsedDate) - new Date(b.ParsedDate));
+        courses.forEach((course) => {
+          var row = table.insertRow(-1);
+          var courseCell = row.insertCell(0);
+          var nameCell = row.insertCell(1);
+          var dateCell = row.insertCell(2);
+          var periodCell = row.insertCell(3);
+          var actionCell = row.insertCell(4);
+          courseCell.innerHTML = course.course;
+          nameCell.innerHTML = course.name;
+          dateCell.innerHTML = course.date;
+          periodCell.innerHTML = course.period;
+          actionCell.appendChild(generateRemoveButton(course.course));
+        });
+      }
+
+      function generateAddToCalendarLink() {
+        var courseCodes = courses.map((c) => c.course).join(",");
+        var url = courseCodes.length > 0 ? `/cal/${courseCodes}` : "#";
+        document.getElementById("generatedURL").href = url;
+      }
+
+      function clearAll() {
+        courses = [];
+        handleUpdate();
+      }
     </script>
-</body>
-
+  </body>
 </html>
