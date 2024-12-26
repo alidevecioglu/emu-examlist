@@ -76,46 +76,67 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="logo-box text-center">
-        <img src="emu-logo.svg" alt="EMU Logo" width="300" />
+    <div class="container py-4">
+      <!-- Logo Section -->
+      <div class="logo-box text-center mb-4">
+        <img
+          src="emu-logo.svg"
+          alt="EMU Logo"
+          class="img-fluid"
+          style="max-width: 300px"
+        />
       </div>
-      <div class="text-center">
-        <h1 class="fw-bolder">EMU Dynamic Exam Calendar</h1>
+
+      <!-- Title Section -->
+      <div class="text-center mb-3">
+        <h1 class="fw-bold">EMU Dynamic Exam Calendar</h1>
       </div>
-      <div class="alert alert-warning text-center">
-        <a>
-          <span class="fw-bolder"> Disclaimer: </span>
-          This website is not partnered with or endorsed by Eastern
-          Mediterranean University. This is a personal project and is not
-          affiliated with the university.
-        </a>
+
+      <!-- Disclaimer Alert -->
+      <div class="alert alert-warning text-center mb-3">
+        <span class="fw-bold">Disclaimer:</span>
+        This website is not partnered with or endorsed by Eastern Mediterranean
+        University. This is a personal project and is not affiliated with the
+        university.
       </div>
-      <div class="alert alert-info text-center">
-        <a>
-          <span class="fw-bolder"> Info: </span>
-          This website gets the exam dates from the official
-          <a
-            class="fw-semibold"
-            href="https://stdportal.emu.edu.tr/examlist.asp"
-            target="_blank"
-            >EMU exam schedule</a
-          >
-          and generates a dynamic calendar for the selected courses.
-        </a>
+
+      <!-- Info Alert -->
+      <div class="alert alert-info text-center mb-4">
+        <span class="fw-bold">Info:</span>
+        This website gets the exam dates from the official
+        <a
+          class="fw-semibold"
+          href="https://stdportal.emu.edu.tr/examlist.asp"
+          target="_blank"
+          >EMU exam schedule</a
+        >
+        and generates a dynamic calendar for the selected courses.
       </div>
-      <div>
-        <label for="courseCode">Enter course code:</label>
+
+      <!-- Input Section -->
+      <div class="mb-3">
+        <label for="courseCode" class="form-label">Enter course code:</label>
         <input
           type="text"
           id="courseCode"
+          class="form-control"
           placeholder="e.g., ITEC310, ITEC420, ..."
         />
       </div>
-      <button class="btn btn-primary" onclick="addCourse()">Add Course</button>
 
-      <div class="table-container">
-        <table id="ExamTable" class="table table-striped table-bordered">
+      <!-- Add Course Button -->
+      <div class="d-grid gap-2 mb-4">
+        <button class="btn btn-primary" onclick="addCourse()">
+          Add Course
+        </button>
+      </div>
+
+      <!-- Table Section -->
+      <div class="table-responsive mb-4">
+        <table
+          id="ExamTable"
+          class="table table-striped table-bordered text-center align-middle"
+        >
           <thead>
             <tr>
               <th>Course Code</th>
@@ -128,9 +149,16 @@
           <tbody></tbody>
         </table>
       </div>
-      <div class="button-container">
+
+      <!-- Button Section -->
+      <div
+        class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3"
+      >
         <a id="generatedURL" href="#" class="btn btn-primary" target="_blank"
-          >Add To Calendar Link</a
+          >Get ICAL File</a
+        >
+        <a id="subscribeURL" href="#" class="btn btn-primary" target="_blank"
+          >Subscribe Calendar</a
         >
         <button class="btn btn-danger" onclick="clearAll();">Clear All</button>
       </div>
@@ -142,6 +170,7 @@
       function handleUpdate() {
         TableUpdate();
         generateAddToCalendarLink();
+        generateSubscribeIOS();
       }
 
       function addCourse() {
@@ -183,11 +212,20 @@
 
       function generateRemoveButton(courseCode) {
         var button = document.createElement("button");
-        button.innerHTML = "Remove";
         button.className = "btn btn-danger";
         button.onclick = function () {
           removeCourse(courseCode);
         };
+
+        var icon = document.createElement("img");
+        icon.src = "trash.svg";
+        icon.alt = "Remove";
+        icon.style.width = "16px";
+        icon.style.height = "16px";
+        icon.style.filter = "invert(100%)";
+
+        button.appendChild(icon);
+
         return button;
       }
 
@@ -216,6 +254,16 @@
         var courseCodes = courses.map((c) => c.course).join(",");
         var url = courseCodes.length > 0 ? `/cal/${courseCodes}` : "#";
         document.getElementById("generatedURL").href = url;
+      }
+
+      function generateSubscribeIOS() {
+        var baseURL = "webcal://";
+        var courseCodes = courses.map((c) => c.course).join(",");
+        var url =
+          courseCodes.length > 0
+            ? `${baseURL}${window.location.hostname}/cal/${courseCodes}`
+            : "#";
+        document.getElementById("subscribeURL").href = url;
       }
 
       function clearAll() {

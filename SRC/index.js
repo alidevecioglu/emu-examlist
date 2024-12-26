@@ -2,13 +2,11 @@ import { generateChecksum, EMUExamList } from "./libs/handle-examlist.js";
 import { getLectureNameFromDB } from "./libs/handle-lectures.js";
 
 import ical, { ICalCalendarMethod } from "ical-generator";
-import express from "express";
 import { rateLimit } from "express-rate-limit";
-import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { get } from "http";
-import { name } from "ejs";
+import express from "express";
+import path from "path";
 
 const cacheTime = 30 * 60 * 1000; // 30 minutes
 
