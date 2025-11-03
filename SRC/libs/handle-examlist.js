@@ -2,7 +2,7 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import crypto from "crypto";
 
-const ExamListURL = "https://stdportal.emu.edu.tr/examlist.asp";
+const ExamListURL = "https://exams.emu.edu.tr/midfinal/examlist.asp";
 
 var Cache = [];
 var Checksum = "";
