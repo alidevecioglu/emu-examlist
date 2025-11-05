@@ -45,17 +45,13 @@ function removeCourse(courseCode) {
 
 function generateRemoveButton(courseCode) {
   var button = document.createElement("button");
-  button.className = "btn btn-danger";
+  button.className = "btn btn-danger btn-sm";
   button.onclick = function () {
     removeCourse(courseCode);
   };
 
-  var icon = document.createElement("img");
-  icon.src = "trash.svg";
-  icon.alt = "Remove";
-  icon.style.width = "16px";
-  icon.style.height = "16px";
-  icon.style.filter = "invert(100%)";
+  var icon = document.createElement("i");
+  icon.className = "bi bi-trash3-fill";
 
   button.appendChild(icon);
 

@@ -5,42 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EMU Dynamic Exam Calendar</title>
     <link href="bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="custom.css" />
+    <% if (umamiScriptUrl && umamiWebsiteId) { %>
+    <script defer src="<%= umamiScriptUrl %>" data-website-id="<%= umamiWebsiteId %>"></script>
+    <% } %>
   </head>
 
   <body>
-    <div class="container py-4">
+    <div class="container py-5">
       <!-- Logo Section -->
       <div class="logo-box text-center mb-4">
         <img
           src="emu-logo.svg"
           alt="EMU Logo"
-          class="img-fluid"
-          style="max-width: 300px"
+          class="img-fluid logo-image"
         />
       </div>
 
       <!-- Title Section -->
-      <div class="text-center mb-3">
-        <h1 class="fw-bold">EMU Dynamic Exam Calendar</h1>
+      <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold mb-2">
+          <i class="bi bi-calendar-check me-2"></i>
+          EMU Dynamic Exam Calendar
+        </h1>
+        <p class="text-muted">Organize your exam schedule with ease</p>
       </div>
 
       <!-- Disclaimer Alert -->
-      <div class="alert alert-warning text-center mb-3">
+      <div class="alert alert-warning alert-modern text-center mb-3">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
         <span class="fw-bold">Disclaimer:</span>
         This website is not partnered with or endorsed by Eastern Mediterranean
         University.
-        <b
-          >This is a personal project and is not affiliated with the university.
-        </b>
+        <strong>This is a personal project and is not affiliated with the university.</strong>
       </div>
 
       <!-- Info Alert -->
-      <div class="alert alert-info text-center mb-4">
+      <div class="alert alert-info alert-modern text-center mb-4">
+        <i class="bi bi-info-circle-fill me-2"></i>
         <span class="fw-bold">Info:</span>
         This website gets the exam dates from the official
         <a
-          class="fw-semibold"
+          class="fw-semibold text-decoration-underline"
           href="https://exams.emu.edu.tr/midfinal/examlist.asp"
           target="_blank"
           >EMU exam schedule</a
@@ -49,66 +56,103 @@
       </div>
 
       <!-- Input Section -->
-      <div class="mb-3">
-        <label for="courseCode" class="form-label">Enter course code:</label>
-        <input
-          type="text"
-          id="courseCode"
-          class="form-control"
-          placeholder="e.g., ITEC310, ITEC420, ..."
-        />
-      </div>
-
-      <!-- Add Course Button -->
-      <div class="d-grid gap-2 mb-4">
-        <button class="btn btn-primary" onclick="addCourse()">
-          Add Course
-        </button>
+      <div class="card card-modern mb-4">
+        <div class="card-body">
+          <label for="courseCode" class="form-label fw-semibold">
+            <i class="bi bi-search me-2"></i>Enter course code:
+          </label>
+          <div class="input-group input-group-modern">
+            <span class="input-group-text">
+              <i class="bi bi-mortarboard-fill"></i>
+            </span>
+            <input
+              type="text"
+              id="courseCode"
+              class="form-control"
+              placeholder="e.g., ITEC310, ITEC420, ..."
+            />
+            <button class="btn btn-primary" onclick="addCourse()">
+              <i class="bi bi-plus-circle me-1"></i>
+              Add Course
+            </button>
+          </div>
+          <small class="text-muted mt-2 d-block">
+            <i class="bi bi-lightbulb me-1"></i>
+            Tip: You can add multiple courses separated by commas
+          </small>
+        </div>
       </div>
 
       <!-- Table Section -->
-      <div class="table-responsive mb-4">
-        <table
-          id="ExamTable"
-          class="table table-striped table-bordered text-center align-middle"
-        >
-          <thead>
-            <tr>
-              <th>Course Code</th>
-              <th>Course Name</th>
-              <th>Exam Date</th>
-              <th>Exam Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="card card-modern mb-4">
+        <div class="card-header bg-gradient">
+          <h5 class="mb-0">
+            <i class="bi bi-list-ul me-2"></i>
+            Your Exam Schedule
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table
+              id="ExamTable"
+              class="table table-modern table-hover text-center align-middle mb-0"
+            >
+              <thead>
+                <tr>
+                  <th><i class="bi bi-code-square me-1"></i>Course Code</th>
+                  <th><i class="bi bi-book me-1"></i>Course Name</th>
+                  <th><i class="bi bi-calendar-event me-1"></i>Exam Date</th>
+                  <th><i class="bi bi-clock me-1"></i>Exam Time</th>
+                  <th><i class="bi bi-gear me-1"></i>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
       <!-- Button Section -->
-      <div
-        class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-1"
-      >
-        <a
-          id="generatedURL"
-          href="#"
-          class="btn btn-primary flex-grow-1 text-center"
-          target="_blank"
-          >Download Calendar</a
-        >
-        <a
-          id="subscribeURL"
-          href="#"
-          class="btn btn-primary flex-grow-1 text-center"
-          target="_blank"
-          >Subscribe Calendar (Apple)</a
-        >
-        <button
-          class="btn btn-danger flex-grow-1 text-center"
-          onclick="clearAll();"
-        >
-          Clear All
-        </button>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <a
+            id="generatedURL"
+            href="#"
+            class="btn btn-success btn-modern w-100 d-flex align-items-center justify-content-center"
+            target="_blank"
+          >
+            <i class="bi bi-download me-2"></i>
+            Download Calendar
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a
+            id="subscribeURL"
+            href="#"
+            class="btn btn-primary btn-modern w-100 d-flex align-items-center justify-content-center"
+            target="_blank"
+          >
+            <i class="bi bi-apple me-2"></i>
+            Subscribe Calendar
+          </a>
+        </div>
+        <div class="col-md-4">
+          <button
+            class="btn btn-danger btn-modern w-100 d-flex align-items-center justify-content-center"
+            onclick="clearAll();"
+          >
+            <i class="bi bi-trash3 me-2"></i>
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center text-muted mt-4">
+        <small>
+          <i class="bi bi-heart-fill text-danger"></i>
+          Made with passion for EMU students
+        </small>
       </div>
     </div>
 
